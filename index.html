@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Sketch</title>
-
-    <link rel="stylesheet" type="text/css" href="style.css" />
-
-    <script src="libraries/p5.min.js"></script>
-    <!-- <script src="libraries/p5.sound.min.js"></script> -->
-
-    <style>
-      #gameCanvas {
-        box-shadow: 10px 10px 15px black;
-      }
-    </style>
+    <title>Poe's Maze</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
-    <div>
-      <h1>Gothic Maze: Poe Edition</h1>
-      <canvas id="gameCanvas"></canvas>
+    <!-- Pantalla de inicio -->
+    <div id="start-screen">
+      <h1 style="text-align: center">Poe's Maze</h1>
+
+      <p>
+        Sumérgete en un laberinto de obstáculos inspirados en los oscuros y
+        fascinantes cuentos de Edgar Allan Poe. ¡Demuestra tus habilidades y
+        esquiva los peligros que acechan!
+      </p>
+
+      <h2>Machine Learning en acción:</h2>
+      <p>
+        Controla al personaje con movimientos de tus manos de forma intuitiva y
+        dinámica.
+      </p>
+
+      <ul style="text-align: left">
+        <li>
+          <strong>Deslizar la mano hacia arriba:</strong> Mueve al personaje
+          hacia arriba.
+        </li>
+        <li>
+          <strong>Deslizar la mano hacia abajo:</strong> Mueve al personaje
+          hacia abajo.
+        </li>
+        <li>
+          <strong>Mover la mano hacia la derecha:</strong> Desplaza al personaje
+          hacia la derecha.
+        </li>
+        <li>
+          <strong>Mover la mano hacia la izquierda:</strong>
+          Desplaza al personaje hacia la izquierda.
+        </li>
+        <li>
+          <strong>No hacer nada:</strong> Mantén al personaje en su lugar.
+        </li>
+      </ul>
+      <br />
+      <button id="start-button">Iniciar Juego</button>
     </div>
 
-    <script src="GameCode/Game.js" type="module"></script>
+    <!-- Contenedor del juego -->
+    <canvas id="game-canvas"></canvas>
+
+    <script type="module" src="./GameCode/Game.js"></script>
+    <script type="module" src="./GameCode/TileMap.js"></script>
   </body>
 </html>

@@ -1,14 +1,30 @@
 import TileMap from "./TileMap.js";
 
-const tileSize = 35;
-const canvas = document.getElementById("gameCanvas");
+const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
-const tileMap = new TileMap(tileSize);
 
-// Game loop
-function gameLoop() {
-  tileMap.draw(ctx);
+// Configuración inicial
+canvas.width = 900; // Ajusta según el tamaño del laberinto
+canvas.height = 600;
+
+const tileMap = new TileMap(60); // Tamaño de cada celda del laberinto
+let gameStarted = false;
+
+// Iniciar el juego
+function startGame() {
+  document.getElementById("start-screen").style.display = "none";
+  canvas.style.display = "block";
+  gameStarted = true;
+  gameLoop();
 }
 
-// Tamaño del canvas en donde va el juego
-tileMap.setCanvasSize(canvas);
+// Ciclo del juego
+function gameLoop() {
+  tileMap.draw(ctx); // Dibujar el laberinto
+  if (gameStarted) {
+    requestAnimationFrame(gameLoop);
+  }
+}
+
+// Evento para iniciar el juego
+document.getElementById("start-button").addEventListener("click", startGame);
