@@ -67,7 +67,7 @@ strong {
 /* Pantalla de inicio */
 #start-screen {
   text-align: center;
-  padding: 100px;
+  padding: 80px;
   max-width: 650px;
   background-color: rgba(0, 0, 0, 0.8);
   border: 2px solid #262726;
@@ -94,4 +94,20 @@ strong {
 #game-canvas {
   display: none; /* Ocultamos el canvas hasta que el juego inicie */
   border: 2px solid #634551;
+}
+
+/* canvas del juego */
+body {
+  margin: 0; /* Elimina el margen por defecto */
+  display: flex; /* Habilita el sistema de flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* La altura de la pantalla completa */
+  background-color: black; /* Opcional: fondo del juego */
+  /* overflow: hidden; Evita scroll si es necesario */
+}
+
+canvas {
+  border: 2px solid white; /* Opcional: agrega un borde */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Opcional: efecto de brillo */
 }
