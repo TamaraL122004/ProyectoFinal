@@ -1,78 +1,92 @@
-// export default class Personaje {
-//     constructor(x, y, tileSize, sprite) {
-//       this.x = x; // Posición inicial en X
-//       this.y = y; // Posición inicial en Y
-//       this.tileSize = tileSize; // Tamaño del personaje
-//       this.sprite = sprite; // Imagen del personaje
-//       this.speed = 2; // Velocidad de movimiento
-//     }
-
-//     // Dibujar el personaje en el canvas
-//     draw(ctx) {
-//       ctx.drawImage(this.sprite, this.x, this.y, this.tileSize, this.tileSize);
-//     }
-
-//     // Mover el personaje
-//     move(directionX, directionY, tileMap) {
-//       const nextX = this.x + directionX * this.speed;
-//       const nextY = this.y + directionY * this.speed;
-
-//       // Evitar que el personaje atraviese paredes
-//       if (!this.collidesWithWall(nextX, nextY, tileMap)) {
-//         this.x = nextX;
-//         this.y = nextY;
-//       }
-//     }
-
-//     // Verificar colisión con paredes
-//     collidesWithWall(x, y, tileMap) {
-//       const row = Math.floor(y / this.tileSize);
-//       const col = Math.floor(x / this.tileSize);
-//       return tileMap.map[row][col] === 1; // 1 representa una pared
-//     }
-//   }
-
 export default class Personaje {
-  constructor(x, y, tileSize, sprite) {
-    this.x = x; // Posición inicial en X
-    this.y = y; // Posición inicial en Y
-    this.tileSize = tileSize; // Tamaño del personaje
+  constructor(tileSize, startX, startY, sprite) {
+    this.tileSize = tileSize;
+    this.x = startX; // Posición inicial en X
+    this.y = startY; // Posición inicial en Y
+    this.speed = 5; // Velocidad del personaje
     this.sprite = sprite; // Imagen del personaje
-    this.speed = 15; // Velocidad de movimiento
+
+    this.currentDirection = null; // Dirección actual
+    this.nextDirection = null; // Próxima dirección
   }
 
-  // Dibujar el personaje en el canvas
   draw(ctx) {
-    ctx.drawImage(this.sprite, this.x, this.y, this.tileSize, this.tileSize);
+    const image = new Image();
+    image.src = this.sprite;
+    ctx.drawImage(image, this.x, this.y, this.tileSize, this.tileSize);
   }
 
-  // Mover el personaje
-  move(directionX, directionY, tileMap) {
+  setDirection(newDirection) {
+    this.nextDirection = newDirection; // Cambia la próxima dirección
+  }
+
+  move(tileMap) {
+    let directionX = 0;
+    let directionY = 0;
+
+    // Define la dirección según la actual
+    switch (this.currentDirection) {
+      case "up":
+        directionY = -1;
+        break;
+      case "down":
+        directionY = 1;
+        break;
+      case "left":
+        directionX = -1;
+        break;
+      case "right":
+        directionX = 1;
+        break;
+    }
+
+    // Calcula la posición siguiente en la dirección actual
     const nextX = this.x + directionX * this.speed;
     const nextY = this.y + directionY * this.speed;
 
-    // Evitar que el personaje atraviese paredes
+    // Comprueba si es seguro moverse en la dirección actual
     if (!this.collidesWithWall(nextX, nextY, tileMap)) {
       this.x = nextX;
       this.y = nextY;
     }
+
+    // Comprueba si se puede cambiar a la próxima dirección
+    if (this.nextDirection) {
+      let nextDirectionX = 0;
+      let nextDirectionY = 0;
+
+      switch (this.nextDirection) {
+        case "up":
+          nextDirectionY = -1;
+          break;
+        case "down":
+          nextDirectionY = 1;
+          break;
+        case "left":
+          nextDirectionX = -1;
+          break;
+        case "right":
+          nextDirectionX = 1;
+          break;
+      }
+
+      const futureX = this.x + nextDirectionX * this.speed;
+      const futureY = this.y + nextDirectionY * this.speed;
+
+      // Si no hay colisión en la nueva dirección, cámbiala
+      if (!this.collidesWithWall(futureX, futureY, tileMap)) {
+        this.currentDirection = this.nextDirection;
+        this.nextDirection = null;
+      }
+    }
   }
 
-  //   // Verificar colisión con paredes
-  //   collidesWithWall(x, y, tileMap) {
-  //     const row = Math.floor(y / this.tileSize);
-  //     const col = Math.floor(x / this.tileSize);
-  //     return tileMap.map[row][col] === 1; // 1 representa una pared
-  //   }
-
   collidesWithWall(x, y, tileMap) {
-    // Calcular las celdas que ocupan las esquinas del personaje
     const leftCol = Math.floor(x / this.tileSize);
     const rightCol = Math.floor((x + this.tileSize - 1) / this.tileSize);
     const topRow = Math.floor(y / this.tileSize);
     const bottomRow = Math.floor((y + this.tileSize - 1) / this.tileSize);
 
-    // Verificar si alguna esquina choca con una pared
     return (
       tileMap.map[topRow][leftCol] === 1 || // Esquina superior izquierda
       tileMap.map[topRow][rightCol] === 1 || // Esquina superior derecha
