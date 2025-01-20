@@ -1,29 +1,3 @@
-/* html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  text-align: center;
-  font-family: "Courier New", Courier, monospace;
-  color: rgb(40, 31, 48);
-}
-
-/* canvas {
-  height: 500px;
-  width: 900px;
-  box-shadow: 10px 10px 15px black;
-} */
-
-/* body {
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  height: 100vh;
-  background: linear-gradient(0deg, rgb(26, 3, 36) 0%, rgb(178, 175, 180) 100%);
-} */
-
 html,
 body {
   margin: 0;
@@ -110,4 +84,78 @@ body {
 canvas {
   border: 2px solid white; /* Opcional: agrega un borde */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Opcional: efecto de brillo */
+}
+
+/* Estilos para la pantalla de victoria */
+/* #victory-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+}
+
+#victory-screen h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#victory-screen p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+#restart-button {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #a57777;
+  border: none;
+  border-radius: 10px;
+} */
+
+#victory-screen {
+  position: fixed; /* Asegura que esté sobre el juego */
+  top: 50%; /* Centrado verticalmente */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translate(-50%, -50%); /* Ajuste para centrar */
+  width: 400px; /* Ancho del popup */
+  padding: 60px;
+
+  background-color: rgb(8, 8, 8); /* Fondo blanco con algo de transparencia */
+
+  border-radius: 10px; /* Bordes redondeados */
+  text-align: center; /* Centrado del texto */
+  box-shadow: 0 4px 8px rgba(194, 191, 191, 0.5); /* Sombra para dar efecto de popup */
+  display: none; /* Inicialmente oculto */
+  z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+}
+
+#victory-screen h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#victory-screen p {
+  font-size: 18px;
+}
+
+#victory-screen button {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  background-color: #8f4848;
+  border: none;
+}
+
+#victory-screen button:hover {
+  background-color: #55335a;
 }
