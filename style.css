@@ -110,7 +110,8 @@ canvas {
 }
 
 #victory-screen p {
-  font-size: 18px;
+  font-size: 1.5em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 #victory-screen button {
