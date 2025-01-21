@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <!-- Pantalla de inicio -->
     <div id="start-screen">
@@ -58,10 +59,19 @@
       <h1>¡Felicidades!</h1>
       <p>¡Has recolectado todas las esferas!</p>
       <br />
-      <button id="restart-button">Jugar nuevamente</button>
+      <button id="restart-button-victory">Jugar nuevamente</button>
+    </div>
+
+    <!-- Pantalla de derrota -->
+    <div id="defeat-screen" style="display: none">
+      <h1>Derrota</h1>
+      <p class="message"></p>
+      <button id="restart-button-defeat">Reintentar</button>
     </div>
 
     <script type="module" src="./GameCode/Game.js"></script>
     <script type="module" src="./GameCode/TileMap.js"></script>
+    <script type="module" src="./GameCode/Enemigos.js"></script>
+    <script type="module" src="./GameCode/Personaje.js"></script>
   </body>
 </html>

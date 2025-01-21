@@ -1,5 +1,5 @@
 export default class Enemigo {
-  constructor(tileSize, startX, startY, sprite) {
+  constructor(tileSize, startX, startY, sprite, id, defeatMessage) {
     this.tileSize = tileSize;
     this.x = startX; // Posición inicial en X
     this.y = startY; // Posición inicial en Y
@@ -8,6 +8,9 @@ export default class Enemigo {
 
     this.directions = ["up", "down", "left", "right"];
     this.currentDirection = this.randomDirection(); // Dirección inicial
+
+    this.id = id; // Identificador único
+    this.defeatMessage = defeatMessage; // Mensaje personalizado
   }
 
   // Dibuja al enemigo
@@ -67,6 +70,16 @@ export default class Enemigo {
       tileMap.map[topRow][rightCol] === 1 || // Esquina superior derecha
       tileMap.map[bottomRow][leftCol] === 1 || // Esquina inferior izquierda
       tileMap.map[bottomRow][rightCol] === 1 // Esquina inferior derecha
+    );
+  }
+
+  // Verifica colisión con el personaje
+  checkCollision(playerX, playerY) {
+    return (
+      playerX < this.x + this.tileSize &&
+      playerX + this.tileSize > this.x &&
+      playerY < this.y + this.tileSize &&
+      playerY + this.tileSize > this.y
     );
   }
 }
