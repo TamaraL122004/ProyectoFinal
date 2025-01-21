@@ -72,7 +72,7 @@ function setup() {
       tileSize * 5,
       "./src/CorazonDelator.png",
       1,
-      "El corazón delator te atrapó..."
+      "Los latidos te persiguen... como al narrador, no puedes silenciar la verdad."
     ),
     new Enemigo(
       tileSize,
@@ -80,7 +80,7 @@ function setup() {
       tileSize * 3,
       "./src/GatoNegro.png",
       2,
-      "El gato negro te acecha en la oscuridad..."
+      "El gato negro te ha juzgado. No puedes escapar de tu destino, como el narrador no pudo escapar de su culpa"
     ),
     new Enemigo(
       tileSize,
@@ -88,7 +88,7 @@ function setup() {
       tileSize * 6,
       "./src/Morella.png",
       3,
-      "Morella ha regresado por ti..."
+      "El espíritu de Morella te ha alcanzado. La muerte no puede borrar ciertas almas."
     ),
     new Enemigo(
       tileSize,
@@ -96,7 +96,7 @@ function setup() {
       tileSize * 8,
       "./src/MuerteRoja.png",
       4,
-      "La Muerte Roja ha sellado tu destino..."
+      "Has sido alcanzado por la Muerte Roja. Ninguna puerta ni muro puede protegerte."
     ),
     new Enemigo(
       tileSize,
@@ -104,7 +104,7 @@ function setup() {
       tileSize * 2,
       "./src/Péndulo.png",
       5,
-      "El péndulo descendió implacablemente..."
+      "El péndulo ha encontrado su objetivo. No siempre hay un rescate en el último momento."
     ),
   ];
 
