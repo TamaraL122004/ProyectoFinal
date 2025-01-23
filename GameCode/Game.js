@@ -151,11 +151,6 @@ async function setup() {
     }
   }
 
-  // // Cargar el modelo de Teachable Machine
-  // const modelURL = "https://teachablemachine.withgoogle.com/models/Xg-xeG70N/";
-  // await movingDirection.loadModel(modelURL);
-  const movingDirection = new MovingDirection();
-
   // Cargar el modelo y configurar la cámara
   movingDirection
     .loadModel("https://teachablemachine.withgoogle.com/models/Xg-xeG70N/")
@@ -163,6 +158,12 @@ async function setup() {
       // Mostrar el video en el contenedor con ID "video-container"
       movingDirection.addVideoToScreen("video-container");
     });
+
+  // Cargar el modelo de Teachable Machine
+  // await movingDirection.loadModel(
+  //   "https://teachablemachine.withgoogle.com/models/Xg-xeG70N/"
+  // );
+  // movingDirection.addVideoToScreen("video-container");
 
   // Configurar controles para el personaje
   setupControls();
