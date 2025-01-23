@@ -70,10 +70,25 @@ export default class MovingDirection {
         return;
       }
 
-      // Actualizar la etiqueta detectada
-      if (results && results[0]) {
-        this.label = results[0].label;
-        this.updateGestureDisplay(this.label); // Mostrar el gesto detectado
+      try {
+        if (results && results.length > 0) {
+          // Buscar la predicción con mayor probabilidad
+          const maxPrediction = results.reduce((prev, current) =>
+            current.confidence > prev.confidence ? current : prev
+          );
+
+          // Actualizar la etiqueta detectada solo si supera un umbral
+          if (maxPrediction.confidence > 0.7) {
+            this.label = maxPrediction.label;
+          } else {
+            this.label = "Nothing";
+          }
+
+          // Mostrar el gesto detectado
+          this.updateGestureDisplay(this.label);
+        }
+      } catch (error) {
+        console.error("Error al procesar las predicciones: ", results, error);
       }
 
       // Clasificar nuevamente
