@@ -166,3 +166,15 @@ canvas {
 #defeat-screen button:hover {
   background-color: #55335a;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Centra horizontalmente */
+}
+
+#video-container video {
+  margin-left: 10px; /* Espacio desde el borde inferior */
+}
