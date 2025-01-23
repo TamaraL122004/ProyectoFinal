@@ -1,6 +1,9 @@
-import TileMap from "./TileMap.js";
-import Personaje from "./Personaje.js";
-import Enemigo from "./Enemigos.js";
+//Para toda la configuración del juego
+
+import TileMap from "./TileMap.js"; // Dibuja la forma del laberinto
+import Personaje from "./Personaje.js"; // Dibuja al personaje y sus acciones
+import Enemigo from "./Enemigos.js"; // Añade a los obstáculos
+import MovingDirection from "./MovingDirection.js"; // Archivo de Teachable Machine
 
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
@@ -9,12 +12,15 @@ const ctx = canvas.getContext("2d");
 canvas.width = 1050;
 canvas.height = 700;
 
-const tileSize = 70;
+const tileSize = 70; // Tamaño de cada tile
+
 let tileMap, personaje, enemigos, esferas;
 let wallImage, floorImage, esferaImage;
 let gameStarted = false;
 let score = 0; // Puntuación inicial
 let totalEsferas = 0; // Total de esferas en el mapa
+
+const movingDirection = new MovingDirection(); // Instancia de MovingDirection
 
 // Preload de imágenes
 function preloadImages() {
@@ -32,7 +38,7 @@ function preloadImages() {
   esferaImage.onload = () => console.log("Imagen de esfera cargada");
 }
 
-// Configurar controles para el personaje principal
+// Configurar controles para el personaje principal - en el teclado
 function setupControls() {
   document.addEventListener("keydown", (event) => {
     switch (event.key) {
@@ -52,8 +58,31 @@ function setupControls() {
   });
 }
 
+// Controlar al personaje basado en gestos detectados - con la cámara
+function controlCharacterWithGestures() {
+  const gestureCommand = movingDirection.getGestureCommand();
+
+  switch (gestureCommand) {
+    case "Up":
+      personaje.setDirection("up");
+      break;
+    case "Down":
+      personaje.setDirection("down");
+      break;
+    case "Left":
+      personaje.setDirection("left");
+      break;
+    case "Right":
+      personaje.setDirection("right");
+      break;
+    default:
+      // Sin movimiento si la clase detectada es "Nothing"
+      break;
+  }
+}
+
 // Configurar el juego
-function setup() {
+async function setup() {
   tileMap = new TileMap(tileSize, wallImage, floorImage);
 
   // Crear al personaje principal
@@ -121,6 +150,10 @@ function setup() {
       }
     }
   }
+
+  // Cargar el modelo de Teachable Machine
+  const modelURL = "https://teachablemachine.withgoogle.com/models/Xg-xeG70N/";
+  await movingDirection.loadModel(modelURL);
 
   // Configurar controles para el personaje
   setupControls();
@@ -191,6 +224,9 @@ function draw() {
   // Dibujar esferas
   drawEsferas();
 
+  // Controlar al personaje con gestos detectados
+  controlCharacterWithGestures();
+
   // Actualizar y dibujar al personaje
   personaje.move(tileMap);
   personaje.draw(ctx);
@@ -249,12 +285,12 @@ function restartGame() {
 preloadImages();
 setup();
 
-document.getElementById("start-button").addEventListener("click", startGame);
+document.getElementById("start-button").addEventListener("click", startGame); // Para iniciar el juego desde la pantalla de inicio
 
 document
   .getElementById("restart-button-defeat")
-  .addEventListener("click", restartGame);
+  .addEventListener("click", restartGame); // Para reiniciar el juego cuando se ha perdido
 
 document
   .getElementById("restart-button-victory")
-  .addEventListener("click", restartGame);
+  .addEventListener("click", restartGame); // Para reiniciar el juego cuando se ha ganado

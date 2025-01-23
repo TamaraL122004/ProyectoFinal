@@ -1,3 +1,5 @@
+//Dibuja al personaje
+
 export default class Personaje {
   constructor(tileSize, startX, startY, sprite) {
     this.tileSize = tileSize;
@@ -81,6 +83,7 @@ export default class Personaje {
     }
   }
 
+  //Para que colide con la pared
   collidesWithWall(x, y, tileMap) {
     const leftCol = Math.floor(x / this.tileSize);
     const rightCol = Math.floor((x + this.tileSize - 1) / this.tileSize);

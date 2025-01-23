@@ -1,3 +1,5 @@
+//Dibuja a los enemigos en el canvas
+
 export default class Enemigo {
   constructor(tileSize, startX, startY, sprite, id, defeatMessage) {
     this.tileSize = tileSize;

@@ -1,3 +1,5 @@
+//Para dibujar el laberinto
+
 export default class TileMap {
   constructor(tileSize, wallImage, floorImage) {
     this.tileSize = tileSize; // Tamaño de cada celda

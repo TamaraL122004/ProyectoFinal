@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/addons/p5.dom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ml5@latest/dist/ml5.min.js"></script>
+
     <title>Poe's Maze</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.2/lib/p5.min.js"></script>
     <link rel="stylesheet" href="style.css" />
@@ -22,33 +26,37 @@
 
       <h2>Machine Learning en acción:</h2>
       <p>
-        Controla al personaje con movimientos de tus manos de forma intuitiva y
-        dinámica.
+        Controla al personaje con movimientos de tus manos de forma dinámica.
       </p>
 
       <ul style="text-align: left">
         <li>
-          <strong>Deslizar la mano hacia arriba:</strong> Mueve al personaje
-          hacia arriba.
+          <strong>Arriba:</strong> Las dos palmas de la mano hacia arriba.
         </li>
         <li>
-          <strong>Deslizar la mano hacia abajo:</strong> Mueve al personaje
-          hacia abajo.
+          <strong>Abajo:</strong>
+          La palma de frente, pero girada horizontalmente
+        </li>
+        <li><strong>Derecha:</strong> El gesto de "OK"</li>
+        <li>
+          <strong>Izquierda:</strong>
+          Con el dedo índice y el pulgar levantado y señala hacia la izquierda
+          (Como una pistola)
         </li>
         <li>
-          <strong>Mover la mano hacia la derecha:</strong> Desplaza al personaje
-          hacia la derecha.
-        </li>
-        <li>
-          <strong>Mover la mano hacia la izquierda:</strong>
-          Desplaza al personaje hacia la izquierda.
-        </li>
-        <li>
-          <strong>No hacer nada:</strong> Mantén al personaje en su lugar.
+          <strong>No hacer nada:</strong> El personaje no se moverá hacia
+          ninguna dirección.
         </li>
       </ul>
       <br />
       <button id="start-button">Iniciar Juego</button>
+      <p>
+        <em>
+          <center>
+            Nota: Si es muy difícil, puedes ayudarte con las flechas del teclado
+          </center></em
+        >
+      </p>
     </div>
 
     <!-- Contenedor del juego -->
@@ -73,6 +81,75 @@
     <script type="module" src="./GameCode/Game.js"></script>
     <script type="module" src="./GameCode/TileMap.js"></script>
     <script type="module" src="./GameCode/Enemigos.js"></script>
+    <script type="module" src="./GameCode/MovingDirection.js"></script>
     <script type="module" src="./GameCode/Personaje.js"></script>
+
+    <!-- <div>Teachable Machine Image Model - p5.js and ml5.js</div>
+    <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@latest/lib/addons/p5.dom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ml5@latest/dist/ml5.min.js"></script>
+    <script type="text/javascript">
+      // Classifier Variable
+      let classifier;
+      // Model URL
+      let imageModelURL = 'https://teachablemachine.withgoogle.com/models/Xg-xeG70N/';
+      
+      // Video
+      let video;
+      let flippedVideo;
+      // To store the classification
+      let label = "";
+    
+      // Load the model first
+      function preload() {
+        classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+      }
+    
+      function setup() {
+        createCanvas(320, 260);
+        // Create the video
+        video = createCapture(VIDEO);
+        video.size(320, 240);
+        video.hide();
+    
+        flippedVideo = ml5.flipImage(video);
+        // Start classifying
+        classifyVideo();
+      }
+    
+      function draw() {
+        background(0);
+        // Draw the video
+        image(flippedVideo, 0, 0);
+    
+        // Draw the label
+        fill(255);
+        textSize(16);
+        textAlign(CENTER);
+        text(label, width / 2, height - 4);
+      }
+    
+      // Get a prediction for the current video frame
+      function classifyVideo() {
+        flippedVideo = ml5.flipImage(video)
+        classifier.classify(flippedVideo, gotResult);
+        flippedVideo.remove();
+    
+      }
+    
+      // When we get a result
+      function gotResult(error, results) {
+        // If there is an error
+        if (error) {
+          console.error(error);
+          return;
+        }
+        // The results are in an array ordered by confidence.
+        // console.log(results[0]);
+        label = results[0].label;
+        // Classifiy again!
+        classifyVideo();
+      }
+    </script> -->
   </body>
 </html>
