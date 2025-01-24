@@ -151,19 +151,11 @@ async function setup() {
     }
   }
 
-  // Cargar el modelo y configurar la cámara
-  movingDirection
-    .loadModel("https://teachablemachine.withgoogle.com/models/Xg-xeG70N/")
-    .then(() => {
-      // Mostrar el video en el contenedor con ID "video-container"
-      movingDirection.addVideoToScreen("video-container");
-    });
-
-  // Cargar el modelo de Teachable Machine
-  // await movingDirection.loadModel(
-  //   "https://teachablemachine.withgoogle.com/models/Xg-xeG70N/"
-  // );
-  // movingDirection.addVideoToScreen("video-container");
+  // Cargar el modelo de Teachable Machine y configurar la cámara
+  await movingDirection.loadModel(
+    "https://teachablemachine.withgoogle.com/models/Xg-xeG70N/"
+  );
+  movingDirection.addVideoToScreen("video-container");
 
   // Configurar controles para el personaje
   setupControls();
@@ -179,10 +171,9 @@ function drawEsferas() {
 // Detectar colisión con esferas
 function checkEsferaCollision() {
   esferas = esferas.filter((esfera) => {
-    const distX = Math.abs(personaje.x + tileSize / 2 - esfera.x - 25); // Ajustado a 50x50
-    const distY = Math.abs(personaje.y + tileSize / 2 - esfera.y - 25); // Ajustado a 50x50
+    const distX = Math.abs(personaje.x + tileSize / 2 - esfera.x - 25);
+    const distY = Math.abs(personaje.y + tileSize / 2 - esfera.y - 25);
 
-    // Si el personaje recoge la esfera
     if (distX < tileSize / 2 && distY < tileSize / 2) {
       score++;
       console.log(`Puntuación: ${score}`);
@@ -215,45 +206,31 @@ function showDefeatScreen(message) {
 function checkWin() {
   if (score === totalEsferas) {
     gameStarted = false;
-    showVictoryScreen(); // Mostrar la pantalla de victoria
+    showVictoryScreen();
   }
 }
 
 // Mostrar la pantalla de victoria
 function showVictoryScreen() {
   const victoryScreen = document.getElementById("victory-screen");
-  victoryScreen.style.display = "block"; // Hacer visible la pantalla de victoria
-  canvas.style.filter = "blur(2px)"; // Aplicar un desenfoque al fondo
+  victoryScreen.style.display = "block";
+  canvas.style.filter = "blur(2px)";
 }
 
 // Dibujar el juego
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   tileMap.draw(ctx);
-
-  // Dibujar esferas
   drawEsferas();
-
-  // Controlar al personaje con gestos detectados
   controlCharacterWithGestures();
-
-  // Actualizar y dibujar al personaje
   personaje.move(tileMap);
   personaje.draw(ctx);
-
-  // Verificar colisión con esferas
   checkEsferaCollision();
-
-  // Dibujar y mover a los enemigos
   enemigos.forEach((enemigo) => {
     enemigo.move(tileMap);
     enemigo.draw(ctx);
   });
-
-  // Verificar colisiones con enemigos
   checkEnemyCollision();
-
-  // Verificar si el jugador ha ganado
   checkWin();
 }
 
@@ -273,21 +250,16 @@ function startGame() {
   gameLoop();
 }
 
-// Función para reiniciar el juego
+// Reiniciar el juego
 function restartGame() {
-  score = 0; // Reiniciar puntuación
-  esferas = []; // Reiniciar las esferas
-  totalEsferas = 0; // Reiniciar el total de esferas
-
-  setup(); // Reconfigurar el juego
-
+  score = 0;
+  esferas = [];
+  totalEsferas = 0;
+  setup();
   document.getElementById("victory-screen").style.display = "none";
   document.getElementById("defeat-screen").style.display = "none";
-
-  canvas.style.display = "block";
-  canvas.style.filter = "none"; // Eliminar desenfoque
-
-  gameStarted = true; // Reiniciar el ciclo de juego
+  canvas.style.filter = "none";
+  gameStarted = true;
   gameLoop();
 }
 
@@ -295,12 +267,10 @@ function restartGame() {
 preloadImages();
 setup();
 
-document.getElementById("start-button").addEventListener("click", startGame); // Para iniciar el juego desde la pantalla de inicio
-
+document.getElementById("start-button").addEventListener("click", startGame);
 document
   .getElementById("restart-button-defeat")
-  .addEventListener("click", restartGame); // Para reiniciar el juego cuando se ha perdido
-
+  .addEventListener("click", restartGame);
 document
   .getElementById("restart-button-victory")
-  .addEventListener("click", restartGame); // Para reiniciar el juego cuando se ha ganado
+  .addEventListener("click", restartGame);
